@@ -1,0 +1,234 @@
+Database Schema
+create database DigitalBank
+
+use DigitalBank
+
+create table RetailBank(
+Order_no int PRIMARY KEY,
+Share_Name varchar(30),
+Share_Id long,
+Quantity int,
+BuyOrSell varchar(20),
+PricePerShare int,
+Customer_id int,
+Account Long,
+Front_Desk_Officer_Id long,
+Branch_Code varchar(20),
+Trading_Charge varchar(20),
+Exchange varchar(20),
+trade_Date_Time varchar(30)
+)
+
+select * from RetailBank
+
+
+Entity Class
+package com.Bank.Retial.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class RetailBank {
+	@Id
+	private long Order_No;
+	private String Share_Name;
+	private long Share_Id;
+	private long Quantity;
+	private String BuyOrSell;
+	private long PricePerShare;
+	private long Customer_Id;
+	private long Account;
+	private long Front_Desk_Officer_Id;
+	private long Branch_Code;
+	private long Trading_Charge;
+	private String Exchange;
+	private long Trade_Date_Time;
+	public long getOrder_No() {
+		return Order_No;
+	}
+	public void setOrder_No(long order_No) {
+		Order_No = order_No;
+	}
+	public String getShare_Name() {
+		return Share_Name;
+	}
+	public void setShare_Name(String share_Name) {
+		Share_Name = share_Name;
+	}
+	public long getShare_Id() {
+		return Share_Id;
+	}
+	public void setShare_Id(long share_Id) {
+		Share_Id = share_Id;
+	}
+	public long getQuantity() {
+		return Quantity;
+	}
+	public void setQuantity(long quantity) {
+		Quantity = quantity;
+	}
+	public String getBuyOrSell() {
+		return BuyOrSell;
+	}
+	public void setBuyOrSell(String buyOrSell) {
+		BuyOrSell = buyOrSell;
+	}
+	public long getPricePerShare() {
+		return PricePerShare;
+	}
+	public void setPricePerShare(long pricePerShare) {
+		PricePerShare = pricePerShare;
+	}
+	public long getCustomer_Id() {
+		return Customer_Id;
+	}
+	public void setCustomer_Id(long customer_Id) {
+		Customer_Id = customer_Id;
+	}
+	public long getAccount() {
+		return Account;
+	}
+	public void setAccount(long account) {
+		Account = account;
+	}
+	public long getFront_Desk_Officer_Id() {
+		return Front_Desk_Officer_Id;
+	}
+	public void setFront_Desk_Officer_Id(long front_Desk_Officer_Id) {
+		Front_Desk_Officer_Id = front_Desk_Officer_Id;
+	}
+	public long getBranch_Code() {
+		return Branch_Code;
+	}
+	public void setBranch_Code(long branch_Code) {
+		Branch_Code = branch_Code;
+	}
+	public long getTrading_Charge() {
+		return Trading_Charge;
+	}
+	public void setTrading_Charge(long trading_Charge) {
+		Trading_Charge = trading_Charge;
+	}
+	public String getExchange() {
+		return Exchange;
+	}
+	public void setExchange(String exchange) {
+		Exchange = exchange;
+	}
+	public long getTrade_Date_Time() {
+		return Trade_Date_Time;
+	}
+	public void setTrade_Date_Time(long trade_Date_Time) {
+		Trade_Date_Time = trade_Date_Time;
+	}
+	
+}
+
+Repository Layer
+package com.Bank.Retial.repositories;
+
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
+
+import com.Bank.Retial.entities.RetailBank;
+
+public interface BankRetial extends JpaRepositoryImplementation<RetailBank, Long> {
+
+}
+
+Controller Layer
+package com.Bank.Retial.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class BankRetailController {
+	
+	@RequestMapping("/showBankDetials")
+	public String ShowBankDetails(){
+		return "SaveBankDetails";
+	}
+
+}
+Application.Property file
+spring.datasource.url=jdbc:mysql://localhost:3306/DigitalBank
+spring.datasource.username=root
+spring.datasource.password=system
+
+View Layer
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Save</title>
+</head>
+<body>
+<h2>Save BankDetails</h2>
+
+</body>
+
+pom.xml Dependencies
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.location</groupId>
+	<artifactId>DigitalBank</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>DigitalBank</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-jasper</artifactId>
+		<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+</html>
+
+
+
+
